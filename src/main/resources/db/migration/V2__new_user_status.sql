@@ -1,0 +1,1 @@
+INSERT into user_status (name,buy_bonus, sell_bonus) VALUES ('platinium', 0.10, 0.10);

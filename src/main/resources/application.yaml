@@ -1,12 +1,14 @@
 spring:
+  application:
+    name: cantor-service
   datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/cantor_service?serverTimezone=Europe/Warsaw&createDatabaseIfNotExist=true
-  jpa:
-    hibernate:
-      ddl-auto: update
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cantor_service
+    password: "root"
+    username: "root"
 
+flyway:
+  url: jdbc:mysql://localhost:3306/mysql
+  schemas: cantor-service
+  user: "root"
+  password: "root"
