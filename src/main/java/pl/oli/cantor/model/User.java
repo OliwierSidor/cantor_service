@@ -19,7 +19,7 @@ import static pl.oli.cantor.model.Role.USER;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
     private String surname;
@@ -27,7 +27,7 @@ public class User {
     private String password;
 
     @CreationTimestamp
-    private LocalDateTime dateAdded;
+    private LocalDateTime registrationDate;
     private String pesel;
     private Role role;
 

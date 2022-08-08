@@ -23,7 +23,7 @@ public class AccountService {
     public void create(CreateAccountRequest request) {
         Optional<Account> optionalAccount = accountRepository.findAccountByCurrency(request);
         if (optionalAccount.isEmpty()) {
-            accountRepository.save(request);
+//            accountRepository.save(request);
         } else {
             throw new BadRequestException("Account already exits");
         }

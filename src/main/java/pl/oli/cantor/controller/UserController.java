@@ -13,14 +13,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerUser(RegisterUserRequest request) {
+    public void registerUser(@RequestBody RegisterUserRequest request) {
         log.info("Registering User");
         userService.register(request);
     }
@@ -42,6 +42,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateUser(@RequestBody UpdateUserRequest request) {
         log.info("Updating user");
-        userService.updateUser(id, request);
+        userService.updateUser(request);
     }
 }

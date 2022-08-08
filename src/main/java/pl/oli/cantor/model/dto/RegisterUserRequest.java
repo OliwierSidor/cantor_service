@@ -3,7 +3,6 @@ package pl.oli.cantor.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.oli.cantor.model.Role;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +13,5 @@ public class RegisterUserRequest {
     private String login;
     private String password;
     private String pesel;
-    private Role role;
+
 }

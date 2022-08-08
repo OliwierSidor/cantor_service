@@ -9,7 +9,7 @@ import pl.oli.cantor.model.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    private Long id;
+    private Integer id;
     private String name;
     private String surname;
     private Role role;

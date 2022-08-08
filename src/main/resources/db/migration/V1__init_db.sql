@@ -25,7 +25,7 @@ CREATE TABLE user
     FOREIGN KEY (user_status_id) REFERENCES user_status (id)
 );
 INSERT INTO user (name, surname, login, password, pesel, role, user_status_id)
-VALUES ('Admin', 'Admin', 'admin', 'admin', null, 'ADMIN', null);
+VALUES ('Admin', 'Admin', 'admin', 'admin', null, '0', null);
 
 
 
