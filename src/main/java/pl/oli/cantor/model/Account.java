@@ -3,6 +3,7 @@ package pl.oli.cantor.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.oli.cantor.model.dto.AccountDTO;
 
 import javax.persistence.*;
 
@@ -19,4 +20,8 @@ public class Account {
 
     @ManyToOne
     private User user;
+
+    public AccountDTO mapToDTO() {
+        return new AccountDTO(id, currency, amount);
+    }
 }

@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findAccountByCurrency(CreateAccountRequest createAccountRequest);
+    Optional<Account> findByAmmount(Double ammount);
 }

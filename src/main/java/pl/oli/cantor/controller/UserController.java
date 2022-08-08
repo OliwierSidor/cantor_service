@@ -33,14 +33,14 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeUser(@PathVariable(name = "id") Long id) {
+    public void removeUser(@PathVariable(name = "id") Integer id) {
         log.info("Removing User");
         userService.removeUser(id);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateUser(@PathVariable(name = "id") Long id, @RequestBody UpdateUserRequest request) {
+    public void updateUser(@RequestBody UpdateUserRequest request) {
         log.info("Updating user");
         userService.updateUser(id, request);
     }

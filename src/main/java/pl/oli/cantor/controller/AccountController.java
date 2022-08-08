@@ -1,11 +1,15 @@
 package pl.oli.cantor.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.oli.cantor.model.dto.AccountDTO;
 import pl.oli.cantor.model.dto.CreateAccountRequest;
 import pl.oli.cantor.service.AccountService;
+
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/api/account")
@@ -24,8 +28,13 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeAccount(@PathVariable(name = "id") Integer id){
+    public void removeAccount(@PathVariable(name = "id") Integer id) {
         log.info("Deleting account");
         accountService.remove(id);
+    }
+
+    @GetMapping
+    public List<AccountDTO> accountDTOList() {
+        return accountService.list();
     }
 }
