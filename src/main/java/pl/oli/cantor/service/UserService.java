@@ -7,7 +7,6 @@ import pl.oli.cantor.exception.AlreadyExistsException;
 import pl.oli.cantor.exception.BadRequestException;
 import pl.oli.cantor.exception.NotFoundException;
 import pl.oli.cantor.model.Account;
-import pl.oli.cantor.model.Currency;
 import pl.oli.cantor.model.User;
 import pl.oli.cantor.model.UserStatus;
 import pl.oli.cantor.model.dto.RegisterUserRequest;
@@ -55,9 +54,8 @@ public class UserService {
         if (optionalUser.isEmpty()) {
             throw new NotFoundException("User not found");
         }
-
         User user = optionalUser.get();
-        List<Account> userAccounts = accountRepository.findAccountsByUser(user);
+        List<Account> userAccounts = accountRepository.findAccountsByUserId(user.getId());
         if (userAccounts.isEmpty()) {
             userRepository.delete(user);
             return;

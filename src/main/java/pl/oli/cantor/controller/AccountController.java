@@ -20,7 +20,7 @@ public class AccountController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAccount(CreateAccountRequest request) {
+    public void createAccount(@RequestBody CreateAccountRequest request) {
         log.info("Creating account");
         accountService.create(request);
     }
@@ -33,8 +33,8 @@ public class AccountController {
         accountService.remove(id);
     }
 
-    @GetMapping
-    public List<AccountDTO> accountDTOList() {
-        return accountService.list();
+    @GetMapping("/list/{id}")
+    public List<AccountDTO> accountDTOList(@PathVariable(name= "id") Integer userId) {
+        return accountService.list(userId);
     }
 }

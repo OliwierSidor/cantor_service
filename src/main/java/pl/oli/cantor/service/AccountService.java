@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.oli.cantor.exception.BadRequestException;
+import pl.oli.cantor.exception.NotFoundException;
 import pl.oli.cantor.model.Account;
+import pl.oli.cantor.model.User;
 import pl.oli.cantor.model.dto.AccountDTO;
 import pl.oli.cantor.model.dto.CreateAccountRequest;
 import pl.oli.cantor.repository.AccountRepository;
+import pl.oli.cantor.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -19,15 +22,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
     public void create(CreateAccountRequest request) {
-        Optional<Account> optionalAccount = accountRepository.findAccountByCurrency(request);
+        Optional<Account> optionalAccount = accountRepository.findAccountByCurrencyAndUserId(request.getCurrency(), request.getUserId());
         if (optionalAccount.isEmpty()) {
-//            accountRepository.save(request);
+            Optional<User> optionalUser = userRepository.findById(request.getUserId());
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                Account account = Account.from(request, user);
+                accountRepository.save(account);
+            } else {
+                throw new NotFoundException("User not found");
+            }
         } else {
             throw new BadRequestException("Account already exits");
         }
-
     }
 
     public void remove(Integer id) {
@@ -46,8 +56,8 @@ public class AccountService {
         }
     }
 
-    public List<AccountDTO> list() {
-        List<Account> accountList = accountRepository.findAll();
+    public List<AccountDTO> list(Integer userId) {
+        List<Account> accountList = accountRepository.findAccountsByUserId(userId);
         return accountList.stream().map(Account::mapToDTO).collect(Collectors.toList());
     }
 }

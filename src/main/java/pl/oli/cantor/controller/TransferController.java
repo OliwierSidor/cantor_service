@@ -3,11 +3,9 @@ package pl.oli.cantor.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import pl.oli.cantor.model.Transfer;
+import org.springframework.web.bind.annotation.*;
+import pl.oli.cantor.model.dto.TransferBetweenRequest;
+import pl.oli.cantor.model.dto.TransferRequest;
 import pl.oli.cantor.service.TransferService;
 
 @Slf4j
@@ -19,8 +17,22 @@ public class TransferController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void makeTransfer(Transfer transfer) {
+    public void transferIn(@RequestBody TransferRequest request) {
         log.info("Making transfer");
-        transferService.make();
+        transferService.transferIn(request);
+    }
+
+    @PostMapping("/withdraw")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void transferOut(@RequestBody TransferRequest request){
+        log.info("Withdrawing money!!!!!");
+        transferService.transferOut(request);
+    }
+
+    @PostMapping("/exchange")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void transferBetween(@RequestBody TransferBetweenRequest request){
+        log.info("Transferring between accounts");
+        transferService.transferBetween(request);
     }
 }

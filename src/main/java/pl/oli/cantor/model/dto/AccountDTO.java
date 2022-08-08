@@ -9,7 +9,7 @@ import pl.oli.cantor.model.Currency;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountDTO {
-    private Long id;
+    private Integer id;
     private Currency currency;
     private Double amount;
 }

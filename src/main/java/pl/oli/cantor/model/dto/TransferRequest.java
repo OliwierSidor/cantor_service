@@ -8,7 +8,9 @@ import pl.oli.cantor.model.Currency;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAccountRequest {
-    private Currency currency;
+public class TransferRequest {
+    private Double amount;
     private Integer userId;
+    private Currency from;
+    private Currency to;
 }

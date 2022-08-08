@@ -29,6 +29,8 @@ public class User {
     @CreationTimestamp
     private LocalDateTime registrationDate;
     private String pesel;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @ManyToOne
