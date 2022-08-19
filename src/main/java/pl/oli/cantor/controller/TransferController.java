@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.oli.cantor.model.dto.TransferBetweenRequest;
 import pl.oli.cantor.model.dto.TransferRequest;
 import pl.oli.cantor.service.TransferService;
 
@@ -31,7 +30,7 @@ public class TransferController {
 
     @PostMapping("/exchange")
     @ResponseStatus(HttpStatus.CREATED)
-    public void transferBetween(@RequestBody TransferBetweenRequest request){
+    public void transferBetween(@RequestBody TransferRequest request){
         log.info("Transferring between accounts");
         transferService.transferBetween(request);
     }

@@ -45,7 +45,8 @@ CREATE TABLE transfer
     amount        DOUBLE,
     transfer_date DATETIME,
     user_id       INT,
-    currency      VARCHAR(45),
+    to_currency   VARCHAR(45),
+    from_currency VARCHAR(45),
     transfer_type VARCHAR(45),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );

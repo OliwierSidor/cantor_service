@@ -3,9 +3,20 @@ spring:
     name: cantor-service
   datasource:
 #    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cantor_service
+    url: jdbc:mysql://localhost:3306/cantor_service?serverTimezone=Europe/Warsaw&createDatabaseIfNotExist=true
     password: "root"
     username: "root"
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
 
 flyway:
   url: jdbc:mysql://localhost:3306/mysql

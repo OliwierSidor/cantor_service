@@ -1,5 +1,6 @@
 package pl.oli.cantor.service;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class TransferService {
     private final AccountRepository accountRepository;
     private final TransferRepository transferRepository;
+    private final ExchangeService exchangeService;
 
     public void transferIn(TransferRequest request) {
         if (request.getAmount() < 0) {
@@ -61,17 +63,18 @@ public class TransferService {
         }
         Optional<Account> optionalAccountFrom = accountRepository.findAccountByCurrencyAndUserId(request.getFrom(), request.getUserId());
         Optional<Account> optionalAccountTo = accountRepository.findAccountByCurrencyAndUserId(request.getTo(), request.getUserId());
-        if(optionalAccountTo.isPresent() && optionalAccountFrom.isPresent()){
+        if (optionalAccountTo.isPresent() && optionalAccountFrom.isPresent()) {
             Account accountFrom = optionalAccountFrom.get();
             Account accountTo = optionalAccountTo.get();
-            if(accountFrom.getAmount() < request.getAmount()){
+            if (accountFrom.getAmount() < request.getAmount()) {
                 throw new BadRequestException("Not enough money");
             } else {
-                Transfer transfer = Transfer.from(request, accountFrom.getUser(), TransferType.BETWEEN);
-                accountTo.setAmount(accountTo.getAmount() + request.getAmount());
                 accountFrom.setAmount(accountFrom.getAmount() - request.getAmount());
+                double exchangeValue = exchangeService.exchange(request.getAmount(), request.getFrom(), request.getTo());
+                accountTo.setAmount(exchangeValue + accountTo.getAmount());
+                Transfer transfer = Transfer.from(request, accountFrom.getUser(), TransferType.BETWEEN);
                 transferRepository.save(transfer);
-               // TODO: przeliczanie walut
+                // TODO: przeliczanie walut
             }
         }
     }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import pl.oli.cantor.model.dto.TransferBetweenRequest;
 import pl.oli.cantor.model.dto.TransferRequest;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 public class Transfer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private Double amount;
 
@@ -28,10 +27,10 @@ public class Transfer {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private Currency from;
+    private Currency fromCurrency;
 
     @Enumerated(EnumType.STRING)
-    private Currency to;
+    private Currency toCurrency;
 
     @Enumerated(EnumType.STRING)
     private TransferType transferType;
